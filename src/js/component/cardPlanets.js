@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import ImageWithFallback from "./ImageWithFallback";
+import imageFallback from "./imageFallback";
 
 export const CardForPlanets = (props) => {
     const { actions, store } = useContext(Context);
