@@ -1,0 +1,8 @@
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a:hover {
+    background-color: #4b4b4b;
+}
