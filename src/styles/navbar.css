@@ -1,0 +1,50 @@
+.autosuggest-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.clear-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+    margin-left: -30px;
+    padding: 0;
+}
+
+.clear-button:hover {
+    color: #000;
+}
+
+.react-autosuggest__suggestions-container {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.react-autosuggest__suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.react-autosuggest__suggestion--highlighted {
+    background-color: #ddd;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
