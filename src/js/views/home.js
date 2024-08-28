@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Card } from "../component/cardCharacters";
-import { CardForPlanets } from "../component/cardPlanets";
-import { CardForVehicles } from "../component/cardVehicles";
+import { CardPlanets } from "../component/cardPlanets";
+import { CardVehicles } from "../component/cardVehicles";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
