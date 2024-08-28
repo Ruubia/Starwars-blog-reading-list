@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import ImageWithFallback from "./ImageWithFallback";
 
 export const Card = (props) => {
     const { actions, store } = useContext(Context);
@@ -9,13 +8,14 @@ export const Card = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        const fetchDetails = async () => {
-            await actions.getPeopleInfo(props.people.uid);
-            setDetails(store.peopleInfo[props.people.uid]);
-        };
-
-        fetchDetails();
-    }, [props.people.uid, store.peopleInfo]);
+        actions.getPeopleInfo(props.people.uid)
+            .then(() => {
+                setDetails(store.peopleInfo[props.people.uid]);
+            })
+            .catch(error => {
+                console.error("Error fetching details:", error);
+            });
+    }, [props.people.uid, store.peopleInfo, actions]);
 
     useEffect(() => {
         setIsFavorite(store.favorites.some(fav => fav.name === props.people.name));
@@ -32,12 +32,13 @@ export const Card = (props) => {
 
     return (
         <div className="card col-12 col-md m-3" style={{ minWidth: "300px" }}>
-            <ImageWithFallback 
+            <img 
                 src={`https://starwars-visualguide.com/assets/img/characters/${props.people.uid}.jpg`} 
-                fallbackSrc="https://placehold.co/300x450"
+                onError={(e) => e.target.src = "https://placehold.co/300x450"} 
                 alt="Card image" 
+                className="img-fluid" 
                 width={300} 
-                height={450}
+                height={450} 
             />
             <div className="card-body">
                 <h5 className="card-title">{props.people.name}</h5>
@@ -63,3 +64,4 @@ export const Card = (props) => {
         </div>
     );
 };
+
