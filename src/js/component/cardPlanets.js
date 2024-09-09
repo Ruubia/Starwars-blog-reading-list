@@ -33,7 +33,7 @@ export const CardPlanets = (props) => {
 
     return (
         <div className="card col-12 col-md m-3" style={{ minWidth: "300px" }}>
-            <img 
+            <ImageFallback 
                 src={`https://starwars-visualguide.com/assets/img/planets/${props.planet.uid}.jpg`} 
                 onError={(e) => e.target.src = "https://placehold.co/300"} 
                 alt="Card image" 
