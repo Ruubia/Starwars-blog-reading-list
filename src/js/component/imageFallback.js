@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ImageWithFallback = ({ src, fallbackSrc, alt, width, height }) => {
+const ImageFallback = ({ src, fallbackSrc, alt, width, height }) => {
   const [imgSrc, setImgSrc] = useState(src);
 
   const handleError = () => {
@@ -19,4 +19,4 @@ const ImageWithFallback = ({ src, fallbackSrc, alt, width, height }) => {
   );
 };
 
-export default ImageWithFallback;
+export default ImageFallback;

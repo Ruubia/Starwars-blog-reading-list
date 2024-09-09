@@ -1,21 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import ImageWithFallback from "./ImageWithFallback";
+import ImageFallback from "./imageFallback";
 
-export const CardForVehicles = (props) => {
+export const CardVehicles = (props) => {
     const { actions, store } = useContext(Context);
     const [details, setDetails] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        const fetchDetails = async () => {
-            await actions.getVehiclesInfo(props.vehicle.uid);
-            setDetails(store.vehiclesInfo[props.vehicle.uid]);
-        };
-
-        fetchDetails();
-    }, [props.vehicle.uid, store.vehiclesInfo]);
+        actions.getVehiclesInfo(props.vehicle.uid)
+            .then(() => {
+                setDetails(store.vehiclesInfo[props.vehicle.uid]);
+            })
+            .catch(error => {
+                console.error("Error fetching details:", error);
+            });
+    }, [props.vehicle.uid, store.vehiclesInfo, actions]);
 
     useEffect(() => {
         setIsFavorite(store.favorites.some(fav => fav.name === props.vehicle.name));
@@ -32,7 +33,7 @@ export const CardForVehicles = (props) => {
 
     return (
         <div className="card col-12 col-md m-3" style={{ minWidth: "300px" }}>
-            <ImageWithFallback 
+            <ImageFallback 
                 src={`https://starwars-visualguide.com/assets/img/vehicles/${props.vehicle.uid}.jpg`} 
                 fallbackSrc="https://placehold.co/300x200"
                 alt="Card image" 

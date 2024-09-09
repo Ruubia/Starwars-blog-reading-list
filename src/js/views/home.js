@@ -13,11 +13,11 @@ export const Home = () => {
     ));
 
     const eachPlanet = store.planets.map((planet, index) => (
-        <CardForPlanets key={index} planet={planet} />
+        <CardPlanets key={index} planet={planet} />
     ));
 
     const eachVehicle = store.vehicles.map((vehicle, index) => (
-        <CardForVehicles key={index} vehicle={vehicle} />
+        <CardVehicles key={index} vehicle={vehicle} />
     ));
 
     return (
