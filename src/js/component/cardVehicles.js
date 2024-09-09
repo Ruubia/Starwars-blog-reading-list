@@ -9,14 +9,13 @@ export const CardVehicles = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        actions.getVehiclesInfo(props.vehicle.uid)
-            .then(() => {
-                setDetails(store.vehiclesInfo[props.vehicle.uid]);
-            })
-            .catch(error => {
-                console.error("Error fetching details:", error);
-            });
-    }, [props.vehicle.uid, store.vehiclesInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getVehiclesInfo(props.vehicle.uid);
+            setDetails(store.vehiclesInfo[props.vehicle.uid]);
+        };
+
+        fetchDetails();
+    }, [props.vehicle.uid, store.vehiclesInfo]);
 
     useEffect(() => {
         setIsFavorite(store.favorites.some(fav => fav.name === props.vehicle.name));
@@ -63,3 +62,4 @@ export const CardVehicles = (props) => {
         </div>
     );
 };
+

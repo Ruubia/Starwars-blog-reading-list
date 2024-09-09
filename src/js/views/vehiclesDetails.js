@@ -8,14 +8,13 @@ export const VehiclesDetails = () => {
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
-        actions.getVehiclesInfo(id)
-            .then(() => {
-                setDetails(store.vehiclesInfo[id]);
-            })
-            .catch(error => {
-                console.error("Error fetching vehicle details:", error);
-            });
-    }, [id, store.vehiclesInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getVehiclesInfo(id);
+            setDetails(store.vehiclesInfo[id]);
+        };
+
+        fetchDetails();
+    }, [id, store.vehiclesInfo]);
 
     if (!details) {
         return <div>Loading...</div>;

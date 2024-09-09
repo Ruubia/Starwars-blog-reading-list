@@ -9,14 +9,13 @@ export const CardPlanets = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        actions.getPlanetsInfo(props.planet.uid)
-            .then(() => {
-                setDetails(store.planetsInfo[props.planet.uid]);
-            })
-            .catch(error => {
-                console.error("Error fetching details:", error);
-            });
-    }, [props.planet.uid, store.planetsInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getPlanetsInfo(props.planet.uid);
+            setDetails(store.planetsInfo[props.planet.uid]);
+        };
+
+        fetchDetails();
+    }, [props.planet.uid, store.planetsInfo]);
 
     useEffect(() => {
         setIsFavorite(store.favorites.some(fav => fav.name === props.planet.name));
@@ -35,11 +34,10 @@ export const CardPlanets = (props) => {
         <div className="card col-12 col-md m-3" style={{ minWidth: "300px" }}>
             <ImageFallback 
                 src={`https://starwars-visualguide.com/assets/img/planets/${props.planet.uid}.jpg`} 
-                onError={(e) => e.target.src = "https://placehold.co/300"} 
+                fallbackSrc="https://placehold.co/300"
                 alt="Card image" 
-                className="img-fluid" 
-                width={300} 
-                height={300} 
+                width={300}
+                height={300}
             />
             <div className="card-body">
                 <h5 className="card-title">{props.planet.name}</h5>

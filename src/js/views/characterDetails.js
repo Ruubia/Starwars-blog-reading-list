@@ -8,14 +8,13 @@ export const CharacterDetails = () => {
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
-        actions.getPeopleInfo(id)
-            .then(() => {
-                setDetails(store.peopleInfo[id]);
-            })
-            .catch(error => {
-                console.error("Error fetching details:", error);
-            });
-    }, [id, store.peopleInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getPeopleInfo(id);
+            setDetails(store.peopleInfo[id]);
+        };
+
+        fetchDetails();
+    }, [id, store.peopleInfo]);
 
     if (!details) {
         return <div>Loading...</div>;
@@ -61,4 +60,3 @@ export const CharacterDetails = () => {
         </div>
     );
 };
-

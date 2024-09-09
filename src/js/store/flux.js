@@ -10,148 +10,130 @@ const getState = ({ getStore, getActions, setStore }) => {
             favorites: JSON.parse(localStorage.getItem("favorites")) || []
         },
         actions: {
-            getPeople: () => {
+            getPeople: async () => {
                 const store = getStore();
                 if (store.people.length === 0) {
-                    fetch("https://www.swapi.tech/api/people?page=1&limit=83", {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch("https://www.swapi.tech/api/people?page=1&limit=83", {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ people: data.results });
                         localStorage.setItem("people", JSON.stringify(data.results));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
-            getPeopleInfo: (id) => {
+            getPeopleInfo: async (id) => {
                 const store = getStore();
                 if (!store.peopleInfo[id]) {
-                    fetch(`https://www.swapi.tech/api/people/${id}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch(`https://www.swapi.tech/api/people/${id}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ peopleInfo: { ...store.peopleInfo, [id]: data.result.properties } });
                         localStorage.setItem("peopleInfo", JSON.stringify({ ...store.peopleInfo, [id]: data.result.properties }));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
-            getPlanets: () => {
+            getPlanets: async () => {
                 const store = getStore();
                 if (store.planets.length === 0) {
-                    fetch("https://www.swapi.tech/api/planets?page=1&limit=60", {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch("https://www.swapi.tech/api/planets?page=1&limit=60", {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ planets: data.results });
                         localStorage.setItem("planets", JSON.stringify(data.results));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
-            getPlanetsInfo: (id) => {
+            getPlanetsInfo: async (id) => {
                 const store = getStore();
                 if (!store.planetsInfo[id]) {
-                    fetch(`https://www.swapi.tech/api/planets/${id}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch(`https://www.swapi.tech/api/planets/${id}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ planetsInfo: { ...store.planetsInfo, [id]: data.result.properties } });
                         localStorage.setItem("planetsInfo", JSON.stringify({ ...store.planetsInfo, [id]: data.result.properties }));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
-            getVehicles: () => {
+            getVehicles: async () => {
                 const store = getStore();
                 if (store.vehicles.length === 0) {
-                    fetch("https://www.swapi.tech/api/vehicles?page=1&limit=76", {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch("https://www.swapi.tech/api/vehicles?page=1&limit=76", {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ vehicles: data.results });
                         localStorage.setItem("vehicles", JSON.stringify(data.results));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
-            getVehiclesInfo: (id) => {
+            getVehiclesInfo: async (id) => {
                 const store = getStore();
                 if (!store.vehiclesInfo[id]) {
-                    fetch(`https://www.swapi.tech/api/vehicles/${id}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(resp => {
+                    try {
+                        const resp = await fetch(`https://www.swapi.tech/api/vehicles/${id}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
                         if (!resp.ok) {
                             throw new Error(`error status: ${resp.status}`);
                         }
-                        return resp.json();
-                    })
-                    .then(data => {
+                        let data = await resp.json();
                         setStore({ vehiclesInfo: { ...store.vehiclesInfo, [id]: data.result.properties } });
                         localStorage.setItem("vehiclesInfo", JSON.stringify({ ...store.vehiclesInfo, [id]: data.result.properties }));
-                    })
-                    .catch(error => {
-                        console.error("Error", error);
-                    });
+                    } catch (error) {
+                        console.error("Error");
+                    }
                 }
             },
             addFavorite: (type, id, name) => {

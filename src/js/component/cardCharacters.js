@@ -9,14 +9,13 @@ export const Card = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        actions.getPeopleInfo(props.people.uid)
-            .then(() => {
-                setDetails(store.peopleInfo[props.people.uid]);
-            })
-            .catch(error => {
-                console.error("Error fetching details:", error);
-            });
-    }, [props.people.uid, store.peopleInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getPeopleInfo(props.people.uid);
+            setDetails(store.peopleInfo[props.people.uid]);
+        };
+
+        fetchDetails();
+    }, [props.people.uid, store.peopleInfo]);
 
     useEffect(() => {
         setIsFavorite(store.favorites.some(fav => fav.name === props.people.name));
@@ -35,11 +34,10 @@ export const Card = (props) => {
         <div className="card col-12 col-md m-3" style={{ minWidth: "300px" }}>
             <ImageFallback 
                 src={`https://starwars-visualguide.com/assets/img/characters/${props.people.uid}.jpg`} 
-                onError={(e) => e.target.src = "https://placehold.co/300x450"} 
+                fallbackSrc="https://placehold.co/300x450"
                 alt="Card image" 
-                className="img-fluid" 
                 width={300} 
-                height={450} 
+                height={450}
             />
             <div className="card-body">
                 <h5 className="card-title">{props.people.name}</h5>
@@ -65,4 +63,3 @@ export const Card = (props) => {
         </div>
     );
 };
-

@@ -8,14 +8,13 @@ export const PlanetsDetails = () => {
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
-        actions.getPlanetsInfo(id)
-            .then(() => {
-                setDetails(store.planetsInfo[id]);
-            })
-            .catch(error => {
-                console.error("Error fetching planet details:", error);
-            });
-    }, [id, store.planetsInfo, actions]);
+        const fetchDetails = async () => {
+            await actions.getPlanetsInfo(id);
+            setDetails(store.planetsInfo[id]);
+        };
+
+        fetchDetails();
+    }, [id, store.planetsInfo]);
 
     if (!details) {
         return <div>Loading...</div>;
@@ -61,3 +60,4 @@ export const PlanetsDetails = () => {
         </div>
     );
 };
+
